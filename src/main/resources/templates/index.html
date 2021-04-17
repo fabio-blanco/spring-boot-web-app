@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout.html :: layout(~{::title}, ~{::main}, 'index', ~{})">
+  <head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Web App Sample</title>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <main class="col-md-10 my-4 px-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Spring Sample</h4>
+              <p class="card-text">This Spring Sample uses the following technologies:</p>
+              <h5>Spring stack</h5>
+              <ul>
+                <li>Spring Boot itself</li>
+                <li>Spring Web Mvc</li>
+                <li>Spring Thymeleaf</li>
+                <li>Spring Data Jpa</li>
+                <li>Spring Validation</li>
+                <li>Spring Security</li>
+                <li>Spring Actuator</li>
+                <li>Spring Boot Devtools</li>
+              </ul>
+              <h5 >Database</h5>
+              <ul>
+                <li>H2</li>
+              </ul>
+              <h5>Web/Front end</h5>
+              <ul>
+                <li>Bootstrap 4</li>
+                <li>Jquery</li>
+                <li>Popper.js</li>
+                <li>Feather icons</li>
+              </ul>
+              <h5>Other</h5>
+              <ul>
+                <li>Hibernate Validator</li>
+                <li>Apache Commons Beanutils</li>
+                <li>Thymeleaf extras (for sec namespace utility)</li>
+              </ul>
+            </div>
+          </div>
+        </main>
+
+      </div>
+
+  </body>
+</html>

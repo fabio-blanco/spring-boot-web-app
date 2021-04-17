@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Spring Boot Web App Sample</title>
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid mb-0">
+      <div class="container-fluid">
+        <h1 class='text-center'>Spring Boot Web App Sample</h1>
+        <div class="clearfix">
+          <div class="shadow d-inline float-right p-4 mb-4 bg-white">
+            <div sec:authorize="isAuthenticated()">
+              <span data-feather="user" ></span> <span>[[${#httpServletRequest.remoteUser}]]</span>
+            </div>
+            <a th:href="@{/login}" sec:authorize="isAnonymous()"><span data-feather="log-in"></span> Login</a>
+            <div sec:authorize="isAuthenticated()">
+              <a th:href="@{/logout}" ><span data-feather="log-out"></span> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <ul class="nav flex-column">
+            <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              Home <span class="sr-only">(current)</span>
+            </a>
+            <li class="nav-item"  sec:authorize="isAnonymous()">
+              <a class="nav-link" th:href="@{/login}">
+                <span data-feather="log-in"></span>
+                Login
+              </a>
+            </li>
+            <li class="nav-item"  sec:authorize="hasAuthority('Admin')">
+              <a class="nav-link" th:href="@{/users}">
+                <span data-feather="users"></span>
+                List Users
+              </a>
+            </li>
+            <li class="nav-item"  sec:authorize="hasAuthority('Admin')">
+              <a class="nav-link" th:href="@{/users/new-user}">
+                <span data-feather="user-plus"></span>
+                New User
+              </a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+              <a class="nav-link" th:href="@{/logout}">
+                <span data-feather="log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <main class="col-md-10 my-4 px-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Spring Sample</h4>
+              <p class="card-text">This Spring Sample uses the following technologies:</p>
+              <h5>Spring stack</h5>
+              <ul>
+                <li>Spring Boot itself</li>
+                <li>Spring Web Mvc</li>
+                <li>Spring Thymeleaf</li>
+                <li>Spring Data Jpa</li>
+                <li>Spring Validation</li>
+                <li>Spring Security</li>
+                <li>Spring Actuator</li>
+                <li>Spring Boot Devtools</li>
+              </ul>
+              <h5 >Database</h5>
+              <ul>
+                <li>H2</li>
+              </ul>
+              <h5>Web/Front end</h5>
+              <ul>
+                <li>Bootstrap 4</li>
+                <li>Jquery</li>
+                <li>Popper.js</li>
+                <li>Feather icons</li>
+              </ul>
+              <h5>Other</h5>
+              <ul>
+                <li>Hibernate Validator</li>
+                <li>Apache Commons Beanutils</li>
+                <li>Tymeleaf extras (for sec namespace utility)</li>
+              </ul>
+            </div>
+          </div>
+        </main>
+
+      </div>
+
+      <div id="errorModalDialog" class="modal fade" role="dialog" th:if="${#ctx.containsVariable('globalError') && !#strings.isEmpty(globalError)}">
+        <div class="modal-dialog modal-lg">
+
+          <!-- Conteúdo da Modal grande -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title error-message">Error</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p class="error-message"
+                 th:if="${#ctx.containsVariable('globalError')}"
+                 th:text="${globalError}">Global error</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/popper-2.9.2.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <script type="text/javascript" th:if="${#ctx.containsVariable('globalError') && !#strings.isEmpty(globalError)}">
+      $(window).on('load', function() {
+        $('#errorModalDialog').modal('show');
+      });
+    </script>
+
+  </body>
+</html>
